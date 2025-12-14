@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        highlight_sql: true
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration-test

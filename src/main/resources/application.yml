@@ -8,3 +8,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate  # 엔티티 & 테이블 정상 매핑 확인
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
