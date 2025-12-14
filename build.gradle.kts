@@ -19,17 +19,31 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        // Spring boot 3.3.x 버전의 Spring Cloud Bom 버전
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.2")
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    /* Open Feign */
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-okhttp")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
