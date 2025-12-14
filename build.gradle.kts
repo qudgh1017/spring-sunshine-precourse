@@ -36,6 +36,12 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("io.github.openfeign:feign-okhttp")
 
+    /* Lombok */
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok")
+    testCompileOnly("org.projectlombok:lombok:1.18.30")
+    testAnnotationProcessor("org.projectlombok:lombok")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     implementation("org.flywaydb:flyway-core")
