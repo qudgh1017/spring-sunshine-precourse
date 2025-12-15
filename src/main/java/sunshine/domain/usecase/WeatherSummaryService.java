@@ -1,12 +1,11 @@
-package sunshine.domain.service;
+package sunshine.domain.usecase;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sunshine.domain.City;
 import sunshine.domain.WeatherSnapShot;
-import sunshine.domain.exception.CityNotFoundException;
-import sunshine.domain.infra.CityInfra;
+import sunshine.domain.service.CityService;
 import sunshine.infrastructure.http.OpenMeteoClient;
 import sunshine.infrastructure.http.dto.OpenMeteoWeatherResponseDto;
 import sunshine.infrastructure.http.dto.OpenMeteoWeatherResponseDto.CurrentWeather;
@@ -16,23 +15,18 @@ import sunshine.infrastructure.http.dto.OpenMeteoWeatherResponseDto.Hourly;
 @RequiredArgsConstructor
 public class WeatherSummaryService {
 
-  private final CityInfra cityInfra;
-  private final OpenMeteoClient WeatherHttpClient;
+  private final CityService cityService;
+  private final OpenMeteoClient weatherHttpClient;
 
   public String getWeatherSummary(String cityName) {
-    City city = getCity(cityName);
+    City city = cityService.getCity(cityName);
     OpenMeteoWeatherResponseDto response = getWeatherInfo(city.getLatitude(), city.getLongitude());
     WeatherSnapShot snapshot = extractCurrent(response);
     return generateSummary(snapshot);
   }
 
-  private City getCity(String cityName) {
-    return cityInfra.findByName(cityName)
-            .orElseThrow(() -> new CityNotFoundException(cityName));
-  }
-
   private OpenMeteoWeatherResponseDto getWeatherInfo(double latitude, double longtitude) {
-    return WeatherHttpClient.getWeatherByLocation(latitude, longtitude, true,
+    return weatherHttpClient.getWeatherByLocation(latitude, longtitude, true,
         "celsius", "apparent_temperature,relative_humidity_2m");
   }
 
