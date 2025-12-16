@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import sunshine.infrastructure.http.OpenMeteoClient;
 import sunshine.infrastructure.http.dto.OpenMeteoWeatherResponseDto;
@@ -29,7 +30,7 @@ class WeatherControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
-  @MockBean
+  @MockitoBean
   private OpenMeteoClient openMeteoClient;
 
   @DisplayName("DB에 없는 도시 이름으로 날씨 조회 시 404를 반환한다")
